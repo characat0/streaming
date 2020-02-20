@@ -19,6 +19,9 @@
             player.write(arrayBuffer);
         });
         socket.on('close', () => {
+            console.log("Closing stream!");
+            const context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.width, canvas.height);
             player.destroy();
         })
     </script>
