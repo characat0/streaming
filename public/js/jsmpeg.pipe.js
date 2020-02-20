@@ -510,7 +510,7 @@ JSMpeg.Demuxer.TS = function() {
             this.bits.write([this.leftoverBytes, buffer],callback)
         } else {
             this.bits = new JSMpeg.BitBuffer(buffer)
-            callback()
+            if (callback) callback()
         }
         this.parsePacket=TS.prototype.parsePacket
         this.packetStart=TS.prototype.packetStart

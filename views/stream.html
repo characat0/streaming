@@ -16,8 +16,11 @@
         const player = new JSMpeg.Player('pipe', { canvas });
         socket.on('connect', () => console.log("connected"));
         socket.on('video', (arrayBuffer) => {
-            player.write(arrayBuffer, () => console.log(arrayBuffer));
+            player.write(arrayBuffer);
         });
+        socket.on('close', () => {
+            player.destroy();
+        })
     </script>
 </body>
 </html>
