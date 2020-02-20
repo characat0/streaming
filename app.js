@@ -18,9 +18,10 @@ app.setRoutes = () => {
         console.log("Attempting to connect to video Stream source");
         if (req.query.key !== streamApiKey) return res.sendStatus(403);
         console.log("Connected to video source");
+        io.emit('starting');
+        console.log("Starting stream.");
         res.connection.setTimeout(0);
         req.on('data', (data) => {
-            console.log("Data packet recieved, length:", data.length, "timestamp:", new Date(Date.now()));
             /*bytes += data.length;
             if (bytes > 1024*1024) {
                 console.log("Switching file writing streams!");
@@ -31,10 +32,12 @@ app.setRoutes = () => {
                 req.pipe(nStream);
                 streams.push(nStream);
             }*/
-            io.sockets.emit('video', data);
+            io.emit('video', data);
         });
+        //ffmpeg -f dshow -rtbufsize 100M -i video=<videoInput> -f mpegts -codec:v mpeg1video -s 640x480 -b:v 800k -r 25 -bf 0 <outSource>
         req.on('end', () => {
-            io.sockets.emit('close');
+            console.log("Video source closed.");
+            io.emit('close');
             res.sendStatus(200)
         });
     });

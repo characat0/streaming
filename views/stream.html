@@ -13,16 +13,23 @@
         const canvas = document.getElementById('canvas');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        const player = new JSMpeg.Player('pipe', { canvas });
-        socket.on('connect', () => console.log("connected"));
+        let player;
+        socket.on('connect', () => {
+            console.log("connected");
+        });
+        socket.on('starting', () => {
+            player = new JSMpeg.Player('pipe', { canvas, autoplay: true });
+        });
         socket.on('video', (arrayBuffer) => {
+            if (!player) player = new JSMpeg.Player('pipe', { canvas, autoplay: true });
             player.write(arrayBuffer);
         });
         socket.on('close', () => {
-            console.log("Closing stream!");
-            const context = canvas.getContext('2d');
-            context.clearRect(0, 0, canvas.width, canvas.height);
             player.destroy();
+            console.log("Closing stream!");
+            const context = canvas.getContext('webgl') || canvas.getContext("experimental-webgl");
+            context.clearColor(0.0, 0.4, 0.0, 1.0);
+            context.clear(context.COLOR_BUFFER_BIT);
         })
     </script>
 </body>
