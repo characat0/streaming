@@ -1,0 +1,25 @@
+let { port } = require("../config");
+const stream = require("stream");
+const http = require("http");
+const app = require("../app");
+//const ffmpeg = require("fluent-ffmpeg");
+const server = http.createServer(app);
+server.on('listening', onListening);
+server.on('error', onError);
+const io = require("socket.io")(server);
+app.set('socket', io);
+app.set('port', port || 5000);
+
+
+
+function onError(e) {
+    console.error(e);
+}
+
+function onListening() {
+    app.setRoutes();
+    console.log('Listening at', server.address());
+}
+
+
+server.listen(app.get('port'));
