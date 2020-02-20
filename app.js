@@ -34,7 +34,8 @@ app.setRoutes = () => {
             io.sockets.emit('video', data);
         });
         req.on('end', () => {
-            io.sockets.emit('close')
+            io.sockets.emit('video', new ArrayBuffer(1024));
+            io.sockets.emit('close');
             res.sendStatus(200)
         });
     });
