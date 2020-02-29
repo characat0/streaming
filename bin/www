@@ -7,6 +7,22 @@ const server = http.createServer(app);
 server.on('listening', onListening);
 server.on('error', onError);
 const io = require("socket.io")(server);
+app.set('onlineSockets', 0);
+let socketTimeout = null;
+io.on('connection', (socket) => {
+    app.set('onlineSockets', app.set('onlineSockets') + 1);
+    socket.on('disconnect', () => {
+        if (global && global.gc) {
+            if (socketTimeout) clearTimeout(socketTimeout);
+            socketTimeout = setTimeout(() => {
+                global.gc();
+                socketTimeout = null;
+            }, 10000);
+        }
+        app.set('onlineSockets', app.set('onlineSockets') - 1);
+    })
+});
+
 app.set('socket', io);
 app.set('port', port || 5000);
 
@@ -17,9 +33,9 @@ function onError(e) {
 }
 
 function onListening() {
-    app.setRoutes();
     console.log('Listening at', server.address());
 }
+
 
 
 server.listen(app.get('port'));

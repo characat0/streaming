@@ -14,23 +14,27 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         let player;
+        const context = canvas.getContext('webgl') || canvas.getContext("experimental-webgl");
+        context.clearColor(0.0, 0.4, 0.0, 1.0);
+        context.clear(context.COLOR_BUFFER_BIT);
+        const handleDisconnect = () => {
+            if (player && player.destroy) player.destroy();
+            console.log("Closing stream!");
+            context.clear(context.COLOR_BUFFER_BIT);
+        };
         socket.on('connect', () => {
             console.log("connected");
         });
         socket.on('starting', () => {
+            console.log('Starting video streaming!');
             player = new JSMpeg.Player('pipe', { canvas, autoplay: true });
         });
         socket.on('video', (arrayBuffer) => {
             if (!player) player = new JSMpeg.Player('pipe', { canvas, autoplay: true });
             player.write(arrayBuffer);
         });
-        socket.on('close', () => {
-            player.destroy();
-            console.log("Closing stream!");
-            const context = canvas.getContext('webgl') || canvas.getContext("experimental-webgl");
-            context.clearColor(0.0, 0.4, 0.0, 1.0);
-            context.clear(context.COLOR_BUFFER_BIT);
-        })
+        socket.on('close', handleDisconnect);
+        socket.on('disconnect', handleDisconnect);
     </script>
 </body>
 </html>
