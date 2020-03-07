@@ -4,15 +4,58 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="public/js/jsmpeg.pipe.min.js"></script>
     <meta charset="UTF-8">
-    <title>Video</title>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/rover.css">
+    <link rel="icon" href="../public/images/nave.png">
+	<title>Streaming Rover</title>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+
+    <div class="container-fluid cinta">
+        <div class="display-3 text-center text-white py-4">PUMII UNI</div>
+      </div>
+    <h1 class="text-center">Bienvenido al Streaming del roverUni</h1>
+  
+      <section class="container-fluid">
+      <section class="row justify-content-center">
+      <section class="col col-md-3 col-xs-3 col-lg-3 col-xl-3 text-center bg-secondary">
+        <div class="mt-5">
+          <img src="../public/images/PUMII.jpg" alt="Imagen PUMII UNI" height="400" width="370">
+          </div>
+      </section>
+  
+      <section class="col col-md-6 col-xs-6 col-lg-6 col-xl-6 text-center bg-secondary">
+        <div class="my-3" name="_reloj">
+        <h6 class="text-white py-1">
+          Número de personas conectadas :
+        </h6>
+        <canvas id="canvas"  height="500" width="790"></canvas>
+        <h6 class="text-white py-2">
+          Tiempo de streaming :
+        </h6><br>
+        <h6 class="text-white py-2">
+          Fecha y hora :
+        </h6>
+        </div>
+        
+      </section>
+  
+      <section class="col col-md-3 col-xs-3 col-lg-3 col-xl-3 text-center bg-secondary">
+          
+        <div class="mt-5">
+          <img src="../public/images/UNI.png" alt="Imagen Logo UNI" height="400" width="370">
+          </div>
+      </section>
+
+  </section>
+</section>
+
     <script>
         const socket = io();
         const canvas = document.getElementById('canvas');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        //canvas.width = window.innerWidth;
+        //canvas.height = window.innerHeight;
         let player;
         const context = canvas.getContext('webgl') || canvas.getContext("experimental-webgl");
         context.clearColor(0.0, 0.4, 0.0, 1.0);
@@ -36,5 +79,9 @@
         socket.on('close', handleDisconnect);
         socket.on('disconnect', handleDisconnect);
     </script>
+    <!--Bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
 </body>
 </html>
