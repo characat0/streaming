@@ -5,101 +5,57 @@
     <script src="public/js/jsmpeg.pipe.min.js"></script>
     <meta charset="UTF-8">
     <meta charset="UTF-8">
-	<link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/rover.css">
-    <link rel="icon" href="../images/nave.png">
-	<title>Streaming Rover</title>
+	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/rover.css">
+    <link rel="icon" href="../public/images/nave.png">
+	<title>PUMII UNI</title>
 </head>
-<body>
+<body class="bg">
 
     <div class="container-fluid cinta">
-        <div class="display-3 text-center text-white py-4">ERC UNI</div>
+        <div class="display-3 text-center text-white py-4">PUMII UNI</div>
       </div>
-    <h1 class="text-center">Bienvenido al Streaming del roverUni</h1>
-
-    <div class="container-fluid cinta">
-        <div class="display-3 text-center text-white py-4">ERC UNI</div>
-      </div>
-      <h1 class="text-center">Bienvenido al Streaming del roverUni</h1>
+    <h1 class="text-center text-white bgfuture bg-dark">Bienvenido al Streaming del roverUni</h1>
   
       <section class="container-fluid">
       <section class="row justify-content-center">
-      <section class="col col-md-3 col-xs-3 col-lg-3 col-xl-3 text-center bg-secondary">
+      <section class="col col-md-3 col-xs-3 col-lg-3 col-xl-3 text-center">
+        <div class="mt-5">
+          <img src="../public/images/PUMII.png" alt="Imagen PUMII UNI" height="400" width="370">
+          </div>
+      </section>
   
-          <div class="input-group my-5">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Dato sensor 1</span>
-              </div>
-              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
-            </div>
+      <section class="col col-md-6 col-xs-6 col-lg-6 col-xl-6 text-center">
+        <div class="my-3" name="_reloj">
+        <h6 class="text-white py-1 bgfuture bg-dark">
+          Número de personas conectadas :
+        </h6>
+        <canvas id="canvas"  height="500" width="730"></canvas>
+        <h6 class="text-white py-2 bgfuture bg-dark">
+          Tiempo de streaming :
+        </h6><br>
+        <h6 class="text-white py-2 bg-dark">
+          Fecha y hora :
+        </h6>
+        </div>
+        
+      </section>
   
-            <div class="input-group mb-5">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon2">Dato sensor 2</span>
-              </div>
-              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon2">
-            </div>
-  
-            <div class="input-group mb-5">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon3">Dato sensor 3</span>
-              </div>
-              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon3">
-            </div>
-  
-            <div class="input-group mb-5">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon4">Dato sensor 4</span>
-              </div>
-              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon4">
-            </div>
+      <section class="col col-md-3 col-xs-3 col-lg-3 col-xl-3 text-center">
           
-      </section>
-  
-      <section class="col col-md-6 col-xs-6 col-lg-6 col-xl-6 text-center bg-secondary">
-      <canvas id="canvas" width="475px" height="475px"></canvas>
-      </section>
-  
-      <section class="col col-md-3 col-xs-3 col-lg-3 col-xl-3 text-center bg-secondary">
-          
-          <div class="input-group my-5">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon5">Dato sensor 5</span>
-              </div>
-              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon5">
-            </div>
-  
-            <div class="input-group mb-5">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon6">Dato sensor 6</span>
-              </div>
-              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon6">
-            </div>
-  
-            <div class="input-group mb-5">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon7">Dato sensor 7</span>
-              </div>
-              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon7">
-            </div>
-            <div class="input-group mb-5">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon7">Dato sensor 8</span>
-              </div>
-              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon8">
-            </div>
-  
-      </section>
-      </section>
+        <div class="mt-5">
+          <img src="../public/images/UNI.png" alt="Imagen Logo UNI" height="350" width="300">
+          </div>
       </section>
 
-
+  </section>
+</section>
 
     <script>
         const socket = io();
         const canvas = document.getElementById('canvas');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        //canvas.width = window.innerWidth;
+        //canvas.height = window.innerHeight;
         let player;
         const context = canvas.getContext('webgl') || canvas.getContext("experimental-webgl");
         context.clearColor(0.0, 0.4, 0.0, 1.0);
@@ -126,6 +82,6 @@
     <!--Bootstrap-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
 </body>
 </html>
