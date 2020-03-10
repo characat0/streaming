@@ -25,10 +25,10 @@
           </div>
       </section>
   
-      <section class="col col-md-12 col-xs-12 col-lg-6 col-xl-6 text-center"  onclick="new_clock()">
+      <section class="col col-md-12 col-xs-12 col-lg-6 col-xl-6 text-center">
         <div class="my-3 text-center" name="_reloj">
         <h6 class="text-white py-1 bgfuture bg-dark">
-          Número de personas conectadas :
+          Número de personas conectadas :<div id="conexiones"></div>
         </h6>
         <canvas id="canvas"  height="500" width="645"></canvas>
         <h6 class="text-white py-2 bgfuture bg-dark">
@@ -64,6 +64,7 @@
         //canvas.width = window.innerWidth;
         //canvas.height = window.innerHeight;
         let player;
+        var numberconect = 0;
         const context = canvas.getContext('webgl') || canvas.getContext("experimental-webgl");
         context.clearColor(0.0, 0.4, 0.0, 1.0);
         context.clear(context.COLOR_BUFFER_BIT);
@@ -71,9 +72,11 @@
             if (player && player.destroy) player.destroy();
             console.log("Closing stream!");
             context.clear(context.COLOR_BUFFER_BIT);
+            numberconect--;
         };
         socket.on('connect', () => {
             console.log("connected");
+            numberconect++;
         });
         socket.on('starting', () => {
             console.log('Starting video streaming!');
@@ -99,6 +102,7 @@
           min = checkTime(min);
           sec = checkTime(sec);
           document.getElementById("clock").innerHTML = hr + ":" + min + ":" + sec + " " + ap;
+          document.getElementById("conexiones").innerHTML = numberconect;
           
           var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
           var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
