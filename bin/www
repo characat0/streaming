@@ -1,8 +1,8 @@
 let { port } = require("../config");
-const stream = require("stream");
+require("../schema");
+const sequelize = require("../database");
 const http = require("http");
 const app = require("../app");
-//const ffmpeg = require("fluent-ffmpeg");
 const server = http.createServer(app);
 server.on('listening', onListening);
 server.on('error', onError);
@@ -37,5 +37,5 @@ function onListening() {
 }
 
 
-
+sequelize.sync();
 server.listen(app.get('port'));

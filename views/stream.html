@@ -4,16 +4,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="public/js/jsmpeg.pipe.min.js"></script>
     <meta charset="UTF-8">
-    <title>Video</title>
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+	  <title>PUMII UNI</title>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+
+  <canvas id="canvas"></canvas>
+
+  <a-scene>
+
+    <!--a-assets>
+        <video id="canvas" autoplay></video>
+    </a-assets-->
+    
+    <a-videosphere src="#canvas"></a-videosphere>
+
+    </a-scene>
+
     <script>
         const socket = io();
         const canvas = document.getElementById('canvas');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         let player;
+        var numberconect = 0;
         const context = canvas.getContext('webgl') || canvas.getContext("experimental-webgl");
         context.clearColor(0.0, 0.4, 0.0, 1.0);
         context.clear(context.COLOR_BUFFER_BIT);
@@ -21,9 +36,11 @@
             if (player && player.destroy) player.destroy();
             console.log("Closing stream!");
             context.clear(context.COLOR_BUFFER_BIT);
+            numberconect--;
         };
         socket.on('connect', () => {
             console.log("connected");
+            numberconect++;
         });
         socket.on('starting', () => {
             console.log('Starting video streaming!');
@@ -35,6 +52,7 @@
         });
         socket.on('close', handleDisconnect);
         socket.on('disconnect', handleDisconnect);
+
     </script>
 </body>
 </html>
