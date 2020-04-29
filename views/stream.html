@@ -4,59 +4,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="public/js/jsmpeg.pipe.min.js"></script>
     <meta charset="UTF-8">
-    <meta charset="UTF-8">
-	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../public/css/rover.css">
-    <link rel="icon" href="../public/images/nave.png">
-	<title>PUMII UNI</title>
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+	  <title>PUMII UNI</title>
 </head>
-<body class="bg" onload="startTime(); carga()">
+<body>
 
-    <div class="container-fluid cinta">
-        <div class="display-3 text-center text-white py-4">PUMII UNI</div>
-      </div>
-    <h1 class="text-center text-white bgfuture bg-dark">Bienvenido al Streaming del roverUni</h1>
-  
-      <section class="container-fluid">
-      <section class="row justify-content-center">
-      <section class="col col-md-12 col-xs-12 col-lg-3 col-xl-3 text-center">
-        <div class="mt-5">
-          <img src="../public/images/PUMII.png" alt="Imagen PUMII UNI" height="350" width="300">
-          </div>
-      </section>
-  
-      <section class="col col-md-12 col-xs-12 col-lg-6 col-xl-6 text-center">
-        <div class="my-3 text-center" name="_reloj">
-        <h6 class="text-white py-1 bgfuture bg-dark">
-          Número de personas conectadas :<div id="conexiones"></div>
-        </h6>
-        <canvas id="canvas"  height="500" width="645"></canvas>
-        <h6 class="text-white py-2 bgfuture bg-dark">
-          Tiempo de streaming :
-          <span id="minutos">0</span>:<span id="segundos">0</span>
-        </h6><br>
-        <h6 class="text-white py-2 bg-dark">
-          Fecha y hora :
-          <div id="clockdate">
-            <div class="clockdate-wrapper">
-              <div id="clock"></div>
-              <div id="date"></div>
-            </div>
-          </div>
-        </h6>
-        </div>
-        
-      </section>
-  
-      <section class="col col-md-12 col-xs-12 col-lg-3 col-xl-3 text-center">
-          
-        <div class="mt-5">
-          <img src="../public/images/UNI.png" alt="Imagen Logo UNI" height="350" width="300">
-          </div>
-      </section>
+  <canvas id="canvas"></canvas>
 
-  </section>
-</section>
+  <a-scene>
+
+    <!--a-assets>
+        <video id="canvas" autoplay></video>
+    </a-assets-->
+    
+    <a-videosphere src="#canvas"></a-videosphere>
+
+    </a-scene>
 
     <script>
         const socket = io();
@@ -88,73 +52,6 @@
         });
         socket.on('close', handleDisconnect);
         socket.on('disconnect', handleDisconnect);
-
-        function startTime() {
-          var today = new Date();
-          var hr = today.getHours();
-          var min = today.getMinutes();
-          var sec = today.getSeconds();
-          ap = (hr < 12) ? "<span>AM</span>" : "<span>PM</span>";
-          hr = (hr == 0) ? 12 : hr;
-          hr = (hr > 12) ? hr - 12 : hr;
-          //Add a zero in front of numbers<10
-          hr = checkTime(hr);
-          min = checkTime(min);
-          sec = checkTime(sec);
-          document.getElementById("clock").innerHTML = hr + ":" + min + ":" + sec + " " + ap;
-          document.getElementById("conexiones").innerHTML = numberconect;
-          
-          var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-          var days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-          var curWeekDay = days[today.getDay()];
-          var curDay = today.getDate();
-          var curMonth = months[today.getMonth()];
-          var curYear = today.getFullYear();
-          var date = curWeekDay+", "+curDay+" "+curMonth+" "+curYear;
-          document.getElementById("date").innerHTML = date;
-          
-          var time = setTimeout(function(){ startTime() }, 500);
-      }
-      function checkTime(i) {
-          if (i < 10) {
-              i = "0" + i;
-          }
-          return i;
-      }
-
-      var cronometro;
-
-      function detenerse()
-      {
-          clearInterval(cronometro);
-      }
-
-      function carga()
-    {
-        contador_s =0;
-        contador_m =0;
-        s = document.getElementById("segundos");
-        m = document.getElementById("minutos");
-
-        cronometro = setInterval(
-            function(){
-                if(contador_s==60)
-                {
-                    contador_s=0;
-                    contador_m++;
-                    m.innerHTML = contador_m;
-                    if(contador_m==60)
-                    {
-                        contador_m=0;
-                    }
-                }
-                s.innerHTML = contador_s;
-                contador_s++;
-            }
-            ,1000);
-    }
-
-
 
     </script>
     <!--Bootstrap-->
