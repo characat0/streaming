@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
 
 
 router.get('/streaming', (req, res) => {
-    const p = path.resolve(__dirname, '../', 'views', 'stream.html');
+    const p = path.resolve(__dirname, '../', 'views', 'roverstream.html');
     res.sendFile(p);
 });
 
